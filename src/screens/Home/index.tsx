@@ -10,13 +10,17 @@ import { Load } from '../../components/Load'
 import { CarDTO } from '../../dtos/CarDTO'
 import api from '../../services/api'
 
+import { Ionicons } from '@expo/vector-icons'
+
 import {
   Container,
   Header,
   TotalCars,
   HeaderContent,
-  CardList
+  CardList,
+  MyCarsButton
 } from './styles'
+import theme from '../styles/theme'
 
 export function Home() {
   const navigation = useNavigation()
@@ -26,6 +30,11 @@ export function Home() {
   function handleCarDetails(car: CarDTO) {
     // @ts-ignore
     navigation.navigate('CarDetails', { car })
+  }
+
+  function handleOpenMyCars() {
+    // @ts-ignore
+    navigation.navigate('MyCars')
   }
 
   useEffect(() => {
@@ -68,6 +77,14 @@ export function Home() {
           renderItem={({ item }) => <CardCar data={item} onPress={() => handleCarDetails(item)} />}
         />
       }
+
+      <MyCarsButton onPress={handleOpenMyCars}>
+        <Ionicons
+          name="ios-car-sport"
+          size={32}
+          color={theme.colors.shape}
+        />
+      </MyCarsButton>
 
     </Container>
   )
