@@ -58,6 +58,7 @@ interface RentalPeriodProps {
 
 export function SchedulingDetails() {
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriodProps>({} as RentalPeriodProps)
+  const [loading, setLoading] = useState(false)
 
   const theme = useTheme()
 
@@ -69,6 +70,7 @@ export function SchedulingDetails() {
   const rentTotal = Number(car.rent.price * dates.length)
 
   async function handleConfirm() {
+    setLoading(true)
     const response = await api.get(`/schedules_bycars/${car.id}`)
 
     const unavailable_dates = [
@@ -78,7 +80,9 @@ export function SchedulingDetails() {
 
     await api.post('schedules_byuser', {
       user_id: 2,
-      car
+      car,
+      startFormatted: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+      endFormatted: format(getPlatformDate(new Date(dates[dates.length - 1])), 'dd/MM/yyyy')
     })
 
     api.put(`/schedules_bycars/${car.id}`, {
@@ -87,7 +91,11 @@ export function SchedulingDetails() {
     })
       // @ts-ignore
       .then(() => navigation.navigate('SchedulingComplete'))
-      .catch(() => Alert.alert('Erro ao cadastrar o agendamento'))
+      .catch(() => {
+        Alert.alert('Erro ao cadastrar o agendamento')
+        setLoading(false)
+      })
+
   }
 
   function handleBack() {
@@ -171,7 +179,13 @@ export function SchedulingDetails() {
       </Content>
 
       <Footer>
-        <Button onPress={handleConfirm} title="Agendar agora" color={theme.colors.success} />
+        <Button
+          onPress={handleConfirm}
+          title="Agendar agora"
+          color={theme.colors.success}
+          enabled={!loading}
+          loading={loading}
+        />
       </Footer>
 
     </Container>

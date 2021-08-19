@@ -61,3 +61,36 @@ export const AppointmentsQuantity = styled.Text`
   font-family: ${({ theme }) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
 `
+
+export const CarWrapper = styled.View`
+  width: 100%;
+  margin-bottom: 24px;
+
+`
+
+export const CarFooter = styled.View`
+  width: 100%;
+  padding: 12px;
+  margin-top: -10px;
+  background-color: ${({ theme }) => theme.colors.background_secondary};
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const CarFooterTitle = styled.Text`
+  color: ${({ theme }) => theme.colors.text_detail};
+  font-family: ${({ theme }) => theme.fonts.secondary_500};
+  font-size: ${RFValue(12)}px;
+`
+
+export const CarFooterPeriod = styled.View`
+  flex-direction: row;
+`
+
+export const CarFooterDate = styled.Text`
+color: ${({ theme }) => theme.colors.title};
+  font-family: ${({ theme }) => theme.fonts.primary_400};
+  font-size: ${RFValue(13)}px;  
+`

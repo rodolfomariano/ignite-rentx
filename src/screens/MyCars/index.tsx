@@ -3,9 +3,13 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { FlatList, StatusBar } from 'react-native'
 import { useTheme } from 'styled-components'
+import { AntDesign } from '@expo/vector-icons'
+
 import { BackButton } from '../../components/BackButton'
 import { CardCar } from '../../components/CardCar'
+import { Load } from '../../components/Load'
 import { CarDTO } from '../../dtos/CarDTO'
+
 import api from '../../services/api'
 
 import {
@@ -17,12 +21,19 @@ import {
   Appointments,
   AppointmentsTitle,
   AppointmentsQuantity,
+  CarWrapper,
+  CarFooter,
+  CarFooterTitle,
+  CarFooterPeriod,
+  CarFooterDate,
 } from './styles'
 
 interface CarProps {
   id: string
   user_id: string
   car: CarDTO
+  startFormatted: string
+  endFormatted: string
 }
 
 export function MyCars() {
@@ -77,23 +88,41 @@ export function MyCars() {
         </SubTitle>
 
       </Header>
+      {loading
+        ? <Load />
+        : <Content>
+          <Appointments>
+            <AppointmentsTitle>Agendamentos feitos</AppointmentsTitle>
+            <AppointmentsQuantity>{cars.length}</AppointmentsQuantity>
+          </Appointments>
 
-      <Content>
-        <Appointments>
-          <AppointmentsTitle>Agendamentos feitos</AppointmentsTitle>
-          <AppointmentsQuantity>02</AppointmentsQuantity>
-        </Appointments>
+          <FlatList
+            data={cars}
+            keyExtractor={item => item.id}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <CarWrapper>
+                <CardCar data={item.car} />
+                <CarFooter>
+                  <CarFooterTitle>Período</CarFooterTitle>
+                  <CarFooterPeriod>
+                    <CarFooterDate>{item.startFormatted}</CarFooterDate>
+                    <AntDesign
+                      name="arrowright"
+                      size={20}
+                      color={theme.colors.title}
+                      style={{ marginHorizontal: 10 }}
+                    />
+                    <CarFooterDate>{item.endFormatted}</CarFooterDate>
+                  </CarFooterPeriod>
+                </CarFooter>
+              </CarWrapper>
+            )}
+          />
 
-        <FlatList
-          data={cars}
-          keyExtractor={item => item.id}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <CardCar data={item.car} />
-          )}
-        />
+        </Content>
+      }
 
-      </Content>
     </Container>
   )
 }

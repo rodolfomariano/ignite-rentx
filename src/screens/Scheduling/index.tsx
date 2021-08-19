@@ -48,9 +48,6 @@ export function Scheduling() {
   const { car } = route.params as CarParams
 
   function handleConfirmScheduling() {
-    if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
-      return Alert.alert('Selecione a data de inicio e a data de fim do agendamento')
-    }
 
     // @ts-ignore
     navigation.navigate('SchedulingDetails', {
@@ -135,6 +132,7 @@ export function Scheduling() {
         <Button
           title="Confirmar"
           onPress={handleConfirmScheduling}
+          enabled={!!rentalPeriod.endFormatted === false ? false : true}
         />
       </Footer>
     </Container>
