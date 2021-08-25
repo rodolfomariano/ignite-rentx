@@ -39,18 +39,3 @@ export const CardList = styled(FlatList as new () => FlatList<CarDTO>).attrs({
 })`
 
 `
-
-export const MyCarsButton = styled(RectButton)`
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-
-  background-color: ${({ theme }) => theme.colors.main};
-
-  align-items: center;
-  justify-content: center;
-
-`
