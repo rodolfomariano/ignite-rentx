@@ -1,0 +1,101 @@
+import React, { useState } from 'react'
+import {
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert
+} from 'react-native'
+import { Button } from '../../components/Button'
+import { Input } from '../../components/Input'
+import theme from '../styles/theme'
+import {
+  Container,
+  Header,
+  Title,
+  SubTitle,
+  Actions,
+  Form
+} from './styles'
+
+import * as Yup from 'yup'
+
+export function SignIn() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  async function handleSignIn() {
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string().required('Email obrigatório!').email('Digite um email valido'),
+        password: Yup.string().required('A senha é obrigatória!')
+      })
+
+      await schema.validate({ email: email, password: password })
+      Alert.alert('Tudo certo')
+
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        return Alert.alert('Opa', error.message)
+      }
+      Alert.alert('Erro na autenticação, virifique as credenciais!')
+    }
+  }
+
+  return (
+    <KeyboardAvoidingView behavior='position' enabled>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <Container>
+          <Header>
+            <Title>
+              Estamos{'\n'}
+              quase lá.
+            </Title>
+            <SubTitle>
+              Faça seu login para começar{'\n'}
+              uma experiência incrível.
+            </SubTitle>
+          </Header>
+
+          <Actions>
+            <Form>
+              <Input
+                iconName='mail'
+                placeholder='E-mail'
+                keyboardType='email-address'
+                autoCorrect={false}
+                autoCapitalize='none'
+                onChangeText={setEmail}
+                value={email}
+              />
+
+              <Input
+                iconName='lock'
+                placeholder='Password'
+                typePassword
+                autoCorrect={false}
+                autoCapitalize='none'
+                onChangeText={setPassword}
+                value={password}
+              />
+
+            </Form>
+            <Button
+              title='Login'
+              onPress={handleSignIn}
+              // enabled={email && password ? true : false}
+              loading={false}
+            />
+            <Button
+              title='Criar conta gratuita'
+              onPress={() => { }}
+              loading={false}
+              color={theme.colors.background_primary}
+              light
+            />
+          </Actions>
+
+        </Container>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+  )
+}
