@@ -51,12 +51,25 @@ export function Input({
       </IconContainer>
 
       <InputContainer isFocused={isFocused}>
-        <InputText
-          secureTextEntry={hiddenPassword && true}
-          onFocus={handleInputFocus} // entra no input
-          onBlur={handleInputBlur} // sai do input
-          {...rest}
-        />
+        {typePassword
+          ? (
+            <InputText
+              secureTextEntry={hiddenPassword && true}
+              onFocus={handleInputFocus} // entra no input
+              onBlur={handleInputBlur} // sai do input
+              {...rest}
+            />
+          )
+          : (
+            <InputText
+
+              onFocus={handleInputFocus} // entra no input
+              onBlur={handleInputBlur} // sai do input
+              {...rest}
+            />
+          )
+        }
+
         {typePassword && (
           <BorderlessButton>
             <Feather

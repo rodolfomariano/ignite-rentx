@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -7,6 +8,7 @@ import {
 } from 'react-native'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
+import * as Yup from 'yup'
 import theme from '../styles/theme'
 import {
   Container,
@@ -17,11 +19,12 @@ import {
   Form
 } from './styles'
 
-import * as Yup from 'yup'
 
 export function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const navigation = useNavigation()
 
   async function handleSignIn() {
     try {
@@ -32,13 +35,17 @@ export function SignIn() {
 
       await schema.validate({ email: email, password: password })
       Alert.alert('Tudo certo')
-
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         return Alert.alert('Opa', error.message)
       }
       Alert.alert('Erro na autenticação, virifique as credenciais!')
     }
+  }
+
+  function handleNewAccount() {
+    // @ts-ignore
+    navigation.navigate('SignUpStepOne')
   }
 
   return (
@@ -87,7 +94,7 @@ export function SignIn() {
             />
             <Button
               title='Criar conta gratuita'
-              onPress={() => { }}
+              onPress={handleNewAccount}
               loading={false}
               color={theme.colors.background_primary}
               light
