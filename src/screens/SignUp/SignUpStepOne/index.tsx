@@ -39,12 +39,12 @@ export function SignUpStepOne() {
   async function handleNextStep() {
     try {
       const schema = Yup.object().shape({
-        cnh: Yup.string().required('Digite sua CNH!'),
+        driverLicense: Yup.string().required('Digite sua CNH!'),
         email: Yup.string().required('Email obrigatório!').email('Digite um email valido'),
         name: Yup.string().required('Nome obrigatório!'),
       })
 
-      const data = { name: userName, email: userEmail, cnh: userDriverLicense }
+      const data = { name: userName, email: userEmail, driverLicense: userDriverLicense }
 
       await schema.validate(data)
 

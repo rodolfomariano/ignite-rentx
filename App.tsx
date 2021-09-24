@@ -3,6 +3,7 @@ import React from 'react';
 import AppLoading from 'expo-app-loading';
 
 import { ThemeProvider } from 'styled-components'
+import { AppProvider } from './src/hooks';
 
 import {
   useFonts,
@@ -34,9 +35,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <NavigationContainer> */}
-      <Routes />
-      {/* </NavigationContainer> */}
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </ThemeProvider>
   );
 }

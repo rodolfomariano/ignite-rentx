@@ -12,6 +12,8 @@ import { Bullet } from '../../../components/Bullet'
 
 import { useTheme } from 'styled-components/native'
 
+import api from '../../../services/api'
+
 import * as Yup from 'yup'
 
 import {
@@ -25,13 +27,12 @@ import {
 } from './styles'
 import { Input } from '../../../components/Input'
 import { Button } from '../../../components/Button'
-import { Success } from '../../Success'
 
 interface Params {
   user: {
     name: string
     email: string
-    userDriverLicense: string
+    driverLicense: string
   }
 }
 
@@ -64,12 +65,24 @@ export function SignUpStepTwo() {
 
       await schema.validate({ password: userPassword, confirmPassword: confirmUserPassword })
 
-      // @ts-ignore
-      navigation.navigate('Success', {
-        title: 'Conta criada',
-        description: `Agora é só logar\n e aproveitar`,
-        goTo: 'SignIn'
+      await api.post('/users', {
+        name: user.name,
+        email: user.email,
+        driver_license: user.driverLicense,
+        password: userPassword
+      }).then(() => {
+        // @ts-ignore
+        navigation.navigate('Success', {
+          title: 'Conta criada',
+          description: `Agora é só logar\n e aproveitar`,
+          goTo: 'SignIn'
+        })
+
+      }).catch(() => {
+        Alert.alert('Opa', 'Não foi possivel cadastrar!')
       })
+
+
 
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
