@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import { StatusBar, StyleSheet, BackHandler } from 'react-native'
+import { StatusBar, StyleSheet } from 'react-native'
 import { RectButton, PanGestureHandler } from 'react-native-gesture-handler'
 import { RFValue } from 'react-native-responsive-fontsize'
 
@@ -34,45 +34,45 @@ export function Home() {
   const [carList, setCarList] = useState<CarDTO[]>([])
   const [loading, setLoading] = useState(true)
 
-  const positionButtonX = useSharedValue(0)
-  const positionButtonY = useSharedValue(0)
+  // const positionButtonX = useSharedValue(0)
+  // const positionButtonY = useSharedValue(0)
 
-  const myCarsButtonStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        { translateX: positionButtonX.value },
-        { translateY: positionButtonY.value },
-      ]
-    }
-  })
+  // const myCarsButtonStyle = useAnimatedStyle(() => {
+  //   return {
+  //     transform: [
+  //       { translateX: positionButtonX.value },
+  //       { translateY: positionButtonY.value },
+  //     ]
+  //   }
+  // })
 
-  const onGestureButtonEvent = useAnimatedGestureHandler({
-    onStart(_, ctx: any) {
-      ctx.positionX = positionButtonX.value
-      ctx.positionY = positionButtonY.value
-    },
-    onActive(event, ctx: any) {
-      positionButtonX.value = ctx.positionX + event.translationX
-      positionButtonY.value = ctx.positionY + event.translationY
-    },
-    onEnd() {
-      positionButtonX.value = withSpring(0)
-      positionButtonY.value = withSpring(0)
-    }
+  // const onGestureButtonEvent = useAnimatedGestureHandler({
+  //   onStart(_, ctx: any) {
+  //     ctx.positionX = positionButtonX.value
+  //     ctx.positionY = positionButtonY.value
+  //   },
+  //   onActive(event, ctx: any) {
+  //     positionButtonX.value = ctx.positionX + event.translationX
+  //     positionButtonY.value = ctx.positionY + event.translationY
+  //   },
+  //   onEnd() {
+  //     positionButtonX.value = withSpring(0)
+  //     positionButtonY.value = withSpring(0)
+  //   }
 
-  })
+  // })
 
-  const ButtonAnimated = Animated.createAnimatedComponent(RectButton)
+  // const ButtonAnimated = Animated.createAnimatedComponent(RectButton)
 
   function handleCarDetails(car: CarDTO) {
     // @ts-ignore
     navigation.navigate('CarDetails', { car })
   }
 
-  function handleOpenMyCars() {
-    // @ts-ignore
-    navigation.navigate('MyCars')
-  }
+  // function handleOpenMyCars() {
+  //   // @ts-ignore
+  //   navigation.navigate('MyCars')
+  // }
 
   useEffect(() => {
     async function fetchCars() {
@@ -88,10 +88,6 @@ export function Home() {
     }
     fetchCars()
 
-  }, [])
-
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => { return true })
   }, [])
 
   return (
@@ -120,7 +116,7 @@ export function Home() {
         />
       }
 
-      <PanGestureHandler
+      {/* <PanGestureHandler
         onGestureEvent={onGestureButtonEvent}
       >
         <Animated.View
@@ -144,19 +140,19 @@ export function Home() {
             />
           </ButtonAnimated>
         </Animated.View>
-      </PanGestureHandler>
+      </PanGestureHandler> */}
 
     </Container>
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.colors.main,
-  }
-})
+// const styles = StyleSheet.create({
+//   button: {
+//     width: 60,
+//     height: 60,
+//     borderRadius: 30,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: theme.colors.main,
+//   }
+// })

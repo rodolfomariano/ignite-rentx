@@ -17,10 +17,13 @@ import LogoSvg from '../../assets/logo.svg'
 import {
   Container
 } from './styles'
+import { useAuth } from '../../hooks/auth'
 
 export function Splash() {
   const splashAnimation = useSharedValue(0)
   const navigation = useNavigation()
+
+  const { user } = useAuth()
 
   const brandStyleAnimation = useAnimatedStyle(() => {
     return {
@@ -50,7 +53,7 @@ export function Splash() {
 
   function startApp() {
     // @ts-ignore
-    navigation.navigate('Home')
+    navigation.navigate(user ? 'Home' : 'SignIn')
   }
 
   useEffect(() => {

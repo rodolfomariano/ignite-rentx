@@ -4,9 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 const { Navigator, Screen } = createStackNavigator()
 
-import { SignIn } from '../screens/SignIn'
-import { SignUpStepOne } from '../screens/SignUp/SignUpStepOne'
-import { SignUpStepTwo } from '../screens/SignUp/SignUpStepTwo'
 import { Home } from '../screens/Home'
 import { CarDetails } from '../screens/CarDetails'
 import { Scheduling } from '../screens/Scheduling'
@@ -15,37 +12,21 @@ import { SchedulingDetails } from '../screens/SchedulingDetails'
 import { MyCars } from '../screens/MyCars'
 import { Splash } from '../screens/Splash'
 
-export function StackRoutes() {
+export function AppStackRoutes() {
   return (
     <Navigator
       screenOptions={{
         headerShown: false
       }}
-      // initialRouteName="Splash"
-      initialRouteName="SignIn"
+      initialRouteName="Home"
     >
       {/* <Screen
         name="Splash"
         component={Splash}
       /> */}
       <Screen
-        name="SignIn"
-        component={SignIn}
-      />
-      <Screen
-        name="SignUpStepOne"
-        component={SignUpStepOne}
-      />
-      <Screen
-        name="SignUpStepTwo"
-        component={SignUpStepTwo}
-      />
-      <Screen
         name="Home"
         component={Home}
-        options={{
-          gestureEnabled: false
-        }}
       />
       <Screen
         name="CarDetails"

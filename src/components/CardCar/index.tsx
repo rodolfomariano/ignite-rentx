@@ -24,7 +24,7 @@ interface CardCarProps extends RectButtonProps {
 }
 
 export function CardCar({ data, ...rest }: CardCarProps) {
-  const { brand, name, rent, thumbnail } = data
+  const { brand, name, period, price, thumbnail } = data
 
   const MotorIcon = getAccessoryIcon(data.fuel_type)
 
@@ -36,8 +36,8 @@ export function CardCar({ data, ...rest }: CardCarProps) {
 
         <About>
           <Rent>
-            <Period>{rent.period}</Period>
-            <Price>{`R$ ${rent.price}`}</Price>
+            <Period>{period}</Period>
+            <Price>{`R$ ${price}`}</Price>
           </Rent>
 
           <Type>
