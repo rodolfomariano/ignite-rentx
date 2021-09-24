@@ -25,6 +25,7 @@ import {
 } from './styles'
 import { Input } from '../../../components/Input'
 import { Button } from '../../../components/Button'
+import { Success } from '../../Success'
 
 interface Params {
   user: {
@@ -62,7 +63,14 @@ export function SignUpStepTwo() {
       }
 
       await schema.validate({ password: userPassword, confirmPassword: confirmUserPassword })
-      Alert.alert('Tudo certo')
+
+      // @ts-ignore
+      navigation.navigate('Success', {
+        title: 'Conta criada',
+        description: `Agora é só logar\n e aproveitar`,
+        goTo: 'SignIn'
+      })
+
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         return Alert.alert('Opa', error.message)

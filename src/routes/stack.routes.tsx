@@ -10,7 +10,7 @@ import { SignUpStepTwo } from '../screens/SignUp/SignUpStepTwo'
 import { Home } from '../screens/Home'
 import { CarDetails } from '../screens/CarDetails'
 import { Scheduling } from '../screens/Scheduling'
-import { SchedulingComplete } from '../screens/SchedulingComplete'
+import { Success } from '../screens/Success'
 import { SchedulingDetails } from '../screens/SchedulingDetails'
 import { MyCars } from '../screens/MyCars'
 import { Splash } from '../screens/Splash'
@@ -56,8 +56,8 @@ export function StackRoutes() {
         component={Scheduling}
       />
       <Screen
-        name="SchedulingComplete"
-        component={SchedulingComplete}
+        name="Success"
+        component={Success}
       />
       <Screen
         name="SchedulingDetails"

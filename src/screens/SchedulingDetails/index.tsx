@@ -90,7 +90,11 @@ export function SchedulingDetails() {
       unavailable_dates
     })
       // @ts-ignore
-      .then(() => navigation.navigate('SchedulingComplete'))
+      .then(() => navigation.navigate('Success', {
+        title: 'Carro alugado!',
+        description: `Agora você precisa ir\n até uma cocessionária da RENTX\n pegar o seu automóvel!`,
+        goTo: 'Home'
+      }))
       .catch(() => {
         Alert.alert('Erro ao cadastrar o agendamento')
         setLoading(false)

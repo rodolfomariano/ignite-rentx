@@ -4,7 +4,8 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert
+  Alert,
+  StatusBar
 } from 'react-native'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
@@ -52,6 +53,11 @@ export function SignIn() {
     <KeyboardAvoidingView behavior='position' enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor="transparent"
+            translucent
+          />
           <Header>
             <Title>
               Estamos{'\n'}
