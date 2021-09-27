@@ -86,6 +86,9 @@ export const Options = styled.View`
 
 export const Option = styled.TouchableOpacity<OptionProps>`
   padding-bottom: 14px;
+  width: 50%;
+
+  align-items: center;
 
   ${({ active }) => active && css`
     border-bottom-width: 2px;
