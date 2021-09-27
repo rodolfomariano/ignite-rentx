@@ -15,8 +15,6 @@ import * as Yup from 'yup'
 import theme from '../styles/theme'
 import { useAuth } from '../../hooks/auth'
 
-import { database } from '../../database'
-
 import {
   Container,
   Header,
@@ -58,15 +56,6 @@ export function SignIn() {
     // @ts-ignore
     navigation.navigate('SignUpStepOne')
   }
-
-  useEffect(() => {
-    async function loadData() {
-      const userCollection = database.get('users')
-      const users = await userCollection.query().fetch()
-      console.log(users)
-    }
-    loadData()
-  }, [])
 
   return (
     <KeyboardAvoidingView behavior='position' enabled>

@@ -75,18 +75,26 @@ export function Home() {
   // }
 
   useEffect(() => {
+    let isMounted = true
+
     async function fetchCars() {
+
       try {
         const response = await api.get('/cars')
-        setCarList(response.data)
+        isMounted && setCarList(response.data)
+
 
       } catch (error) {
         console.log(error)
       } finally {
-        setLoading(false)
+        isMounted && setLoading(false)
       }
     }
     fetchCars()
+
+    return () => {
+      isMounted = false
+    }
 
   }, [])
 
