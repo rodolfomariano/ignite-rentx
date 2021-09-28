@@ -14,6 +14,7 @@ import { useAuth } from '../../hooks/auth'
 import { useTheme } from 'styled-components'
 import { Feather } from '@expo/vector-icons'
 
+import { useNetInfo } from '@react-native-community/netinfo'
 import * as ImagePicker from 'expo-image-picker'
 import * as Yup from 'yup'
 
@@ -49,6 +50,8 @@ export function Profile() {
   const theme = useTheme()
   const navigation = useNavigation()
 
+  const netInfo = useNetInfo()
+
 
   function handleBack() {
     navigation.goBack()
@@ -72,7 +75,11 @@ export function Profile() {
   }
 
   function handleOptionChange(option: 'dataEdit' | 'passwordEdit') {
-    setOption(option)
+    if (netInfo.isConnected === false && option === 'passwordEdit') {
+      Alert.alert('Atenção', 'Só é permitido alterar a senha se você estiver online')
+    } else {
+      setOption(option)
+    }
   }
 
   async function handleProfileUpdate() {
